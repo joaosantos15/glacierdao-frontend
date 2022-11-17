@@ -1,8 +1,9 @@
+import { Fragment, useContext } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { Fragment } from 'react'
+import { DappContext } from '@/pages/dao'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
@@ -90,8 +91,10 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  
+  const { stage, setStage, userType, setUserType } = useContext(DappContext)
   return (
-    <header className="py-10">
+    <header className="py-10 bg-slate-50">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
@@ -108,6 +111,11 @@ export function Header() {
             {/* <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div> */}
+            <button onClick={() => setUserType('user')} className={`${userType==='user' ? 'font-bold':undefined}`}>User</button>
+            <button onClick={() => setUserType('sp')} className={`${userType==='sp' ? 'font-bold':undefined}`}>SP</button>
+            <span>Stage {stage}</span>
+            <button onClick={()=> setStage(stage-1)}>Prev stage</button>
+            <button onClick={()=> setStage(stage+1)}>Next stage</button>
             <Button href="/register" color="blue">
               <span>
                 <span className="hidden lg:inline">Go to</span> App
