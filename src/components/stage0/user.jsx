@@ -32,7 +32,7 @@ export const UserStage0 = () => {
       <div className=" mx-auto grid  max-w-7xl grid-cols-2 py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         <div>
           <h3 className=" text-center text-xl">Funding committed so far</h3>
-          <h3 className=" mt-4 text-center text-5xl">7455 FIL</h3>
+          <h3 className=" mt-4 text-center text-5xl">{`${totalVotes} FIL`}</h3>
         </div>
         <div className="flex flex-col">
           <h3 className=" text-center text-xl">Commit Funding</h3>
@@ -67,7 +67,7 @@ export default function Input({ funding, setFunding }) {
       <input
         type="number"
         name="fil"
-        id="email"
+        id="filammount"
         size="9"
         className="block rounded-md border-gray-300 text-center text-5xl shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-5xl"
         placeholder={funding}

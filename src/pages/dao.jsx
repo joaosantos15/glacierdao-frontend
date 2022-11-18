@@ -30,7 +30,14 @@ export default function Home() {
       funding: 0,
       votes: 0,
     },
+    {
+      address: '0xababab',
+      funding: 0,
+      votes: 0,
+    },
   ])
+
+  const [activeUser, setActiveUser] = useState(users[0])
 
   const [storageProviders, setStorageProviders] = useState([
     {
@@ -62,7 +69,7 @@ export default function Home() {
     },
   ])
 
-  const activeUser = users[0]
+  // const activeUser = users[0]
   const activeStorageProvider = storageProviders[0]
 
   //   const RenderComponent = Pages[`stage${stage}`][`${userType}`]
@@ -75,6 +82,7 @@ export default function Home() {
           users,
           setUsers,
           activeUser,
+          setActiveUser,
           userType,
           setUserType,
           repos,

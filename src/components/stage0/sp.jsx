@@ -20,7 +20,7 @@ import backgroundImage from '@/images/background-faqs.jpg'
 export const SPStage0 = () => {
   const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
   const [funding, setFunding] = useState(0)
-  const {users, setUsers, activeUser} = useContext(DappContext)
+  const {users, setUsers, activeUser, totalVotes} = useContext(DappContext)
 
   const submitFunding = () => {
     const newUsers = users
@@ -41,7 +41,7 @@ export const SPStage0 = () => {
       <div className=" mx-auto grid  max-w-7xl  py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         <div>
           <h3 className=" text-center text-xl">Funding committed so far</h3>
-          <h3 className=" mt-4 text-center text-5xl">7455 FIL</h3>
+          <h3 className=" mt-4 text-center text-5xl">{`${totalVotes} FIL`}</h3>
         </div>
         {/* <div className="flex flex-col">
           <h3 className=" text-center text-xl">Commit Funding</h3>

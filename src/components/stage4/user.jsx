@@ -14,7 +14,10 @@ export const UserStage4 = () => {
     useContext(DappContext)
 
   const numberOfApplications = repos.filter(
-    (r) => typeof r.dealId !== 'undefined'
+    (r) =>
+      typeof r.dealId !== 'undefined' &&
+      typeof r.storageDealApproved !== 'undefined' &&
+      r.storageDealApproved
   ).length
 
   useEffect(() => {
@@ -23,19 +26,14 @@ export const UserStage4 = () => {
 
   return (
     <>
-      <PageTitle
-        title="Stage 4 is live"
-        subtitle={''}
-      />
+      <PageTitle title="Stage 4 is live" subtitle={''} />
       <div className=" mx-auto grid max-w-7xl  grid-cols-2 py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         {/* <div>
           <h3 className=" text-center text-xl capitalize">Your number of available votes</h3>
           <h3 className=" mt-4 text-center text-5xl">{activeUser.votes}</h3>
         </div> */}
         <div>
-          <h3 className=" text-center text-xl capitalize">
-            Live Deals
-          </h3>
+          <h3 className=" text-center text-xl capitalize">Live Deals</h3>
           <h3 className=" mt-4 text-center text-5xl">{numberOfApplications}</h3>
         </div>
         <div>

@@ -91,10 +91,10 @@ function MobileNavigation() {
 }
 
 export function Header() {
-  
-  const { stage, setStage, userType, setUserType } = useContext(DappContext)
+  const { stage, setStage, userType, setUserType, activeUser, setActiveUser, users } =
+    useContext(DappContext)
   return (
-    <header className="py-10 bg-slate-50">
+    <header className="bg-slate-50 py-10">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
@@ -111,11 +111,37 @@ export function Header() {
             {/* <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div> */}
-            <button onClick={() => setUserType('user')} className={`${userType==='user' ? 'font-bold':undefined}`}>User</button>
-            <button onClick={() => setUserType('sp')} className={`${userType==='sp' ? 'font-bold':undefined}`}>SP</button>
+            <button
+              onClick={() => {
+                setActiveUser(users[0])
+                setUserType('user')
+              }}
+              className={`${(userType === 'user' && activeUser.address === users[0].address) ? 'font-bold' : undefined}`}
+            >
+              User 1
+            </button>
+            <button
+              onClick={() => {
+                setActiveUser(users[1])
+                setUserType('user')
+              }}
+              className={`${(userType === 'user' && activeUser.address === users[1].address) ? 'font-bold' : undefined}`}
+            >
+              User 2
+            </button>
+            <button
+              onClick={() => setUserType('sp')}
+              className={`${userType === 'sp' ? 'font-bold' : undefined}`}
+            >
+              SP
+            </button>
             <span>Stage {stage}</span>
-            <button onClick={()=> stage>0 && setStage(stage-1)}>Prev stage</button>
-            <button onClick={()=> stage<5 && setStage(stage+1)}>Next stage</button>
+            <button onClick={() => stage > 0 && setStage(stage - 1)}>
+              Prev stage
+            </button>
+            <button onClick={() => stage < 5 && setStage(stage + 1)}>
+              Next stage
+            </button>
             <Button href="/dao" color="blue">
               <span>
                 <span className="hidden lg:inline">Go to</span> App

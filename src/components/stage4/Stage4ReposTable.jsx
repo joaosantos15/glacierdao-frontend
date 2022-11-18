@@ -59,7 +59,7 @@ export const Stage4ReposTable = ({ repos, setRepos, activeUser, totalVotes }) =>
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      % votes YES
+                      Status
                     </th>
                     <th
                       scope="col"
@@ -73,6 +73,7 @@ export const Stage4ReposTable = ({ repos, setRepos, activeUser, totalVotes }) =>
                   {repos.map((repo, repoIdx) => {
                     const isExpanded = expanded === repo.url
                     const hasApplication = typeof repo.dealId !== 'undefined'
+                    const isActive = typeof repo.storageDealApproved !== 'undefined' && repo.storageDealApproved
 
                     return (
                       <>
@@ -88,14 +89,17 @@ export const Stage4ReposTable = ({ repos, setRepos, activeUser, totalVotes }) =>
                             {repo.votes}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {`${
-                              typeof repo.votesYes !== 'undefined'
-                                ? Math.floor((repo.votesYes / totalVotes) * 100)
-                                : '0%'
-                            }`}
+                          {isActive ? <span className="inline-flex items-center  rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800">
+                              Active
+                            </span>
+                           : 
+                            <span className="inline-flex items-center rounded-md bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                              Not active
+                            </span>
+                          }
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                            <button
+                            {isActive && <button
                               onClick={() =>
                                 isExpanded
                                   ? setExpanded(undefined)
@@ -105,7 +109,7 @@ export const Stage4ReposTable = ({ repos, setRepos, activeUser, totalVotes }) =>
                             >
                               {isExpanded ? 'Hide' : 'View'}
                               <span className="sr-only"></span>
-                            </button>
+                            </button>}
                           </td>
                           <div></div>
                         </tr>

@@ -9,23 +9,42 @@ import backgroundImage from '@/images/background-faqs.jpg'
 export const UserStage1 = () => {
   const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
   const [repoUrl, setRepoUrl] = useState('https://')
-  const { users, setUsers, activeUser, repos, setRepos } = useContext(DappContext)
+  const { users, setUsers, activeUser, repos, setRepos } =
+    useContext(DappContext)
+
+  const resetActiveUserVotes = () => {
+    const newUsers = users.map((u) => {
+      if (u.address === activeUser.address) {
+        u.votes = 0 // because the user has just voted
+      }
+      return u
+    })
+    setUsers(newUsers)
+  }
+
+  const submitVote = ({ url }) => {
+    const newRepos = repos.map((r) => {
+      if (r.url === url) {
+        r.votes = activeUser.votes
+      }
+      return r
+    })
+
+    setRepos(newRepos)
+    resetActiveUserVotes()
+  }
 
   const submitRepo = () => {
-    const newRepos = [...repos, {
+    const newRepos = [
+      ...repos,
+      {
         url: repoUrl,
-        votes: activeUser.votes
-    }]
-    
-    setRepos(newRepos)
+        votes: activeUser.votes,
+      },
+    ]
 
-    const newUsers = users.map((u) => {
-        if (u.address === activeUser.address) {
-          u.votes = 0 // because the user has just voted
-        }
-        return u
-      })
-      setUsers(newUsers)
+    setRepos(newRepos)
+    resetActiveUserVotes()
   }
 
   return (
@@ -36,7 +55,9 @@ export const UserStage1 = () => {
       />
       <div className=" mx-auto grid  max-w-7xl grid-cols-2 py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         <div>
-          <h3 className=" text-center text-xl capitalize">Your number of available votes</h3>
+          <h3 className=" text-center text-xl capitalize">
+            Your number of available votes
+          </h3>
           <h3 className=" mt-4 text-center text-5xl">{activeUser.votes}</h3>
         </div>
         <div>
@@ -45,23 +66,22 @@ export const UserStage1 = () => {
         </div>
       </div>
       <div className="flex flex-col">
-          <h3 className=" text-center text-xl">Submit a repo</h3>
-          <div className="m-auto mt-4">
-            <Input repoUrl={repoUrl} setRepoUrl={setRepoUrl} />
-          </div>
-          <button
-            type="button"
-            className="mt-16 m-auto inline-flex items-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            onClick={submitRepo}
-          >
-            {`Submit and cast my ${activeUser.votes} votes`}
-          </button>
+        <h3 className=" text-center text-xl">Submit a repo</h3>
+        <div className="m-auto mt-4">
+          <Input repoUrl={repoUrl} setRepoUrl={setRepoUrl} />
         </div>
-      <h3 className=" text-center text-3xl font-bold mt-16">Or vote on an existing submission</h3>
-      <Stage1ReposTable repos={repos}/>
-      
-      
-    
+        <button
+          type="button"
+          className="m-auto mt-16 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          onClick={submitRepo}
+        >
+          {`Submit and cast my ${activeUser.votes} votes`}
+        </button>
+      </div>
+      <h3 className=" mt-16 text-center text-3xl font-bold">
+        Or vote on an existing submission
+      </h3>
+      <Stage1ReposTable repos={repos} submitVote={submitVote}/>
     </>
   )
 }
