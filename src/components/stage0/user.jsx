@@ -9,13 +9,14 @@ import backgroundImage from '@/images/background-faqs.jpg'
 export const UserStage0 = () => {
   const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
   const [funding, setFunding] = useState(0)
-  const { users, setUsers, activeUser } = useContext(DappContext)
+  const { users, setUsers, activeUser, totalVotes, setTotalVotes } = useContext(DappContext)
 
   const submitFunding = () => {
     const newUsers = users.map((u) => {
       if (u.address === activeUser.address) {
         u.funding = Math.floor(u.funding) + Math.floor(funding)
         u.votes = Math.floor(u.votes) + Math.floor(funding)
+        setTotalVotes(totalVotes + Math.floor(funding))
       }
       return u
     })

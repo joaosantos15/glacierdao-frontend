@@ -114,8 +114,8 @@ export function Header() {
             <button onClick={() => setUserType('user')} className={`${userType==='user' ? 'font-bold':undefined}`}>User</button>
             <button onClick={() => setUserType('sp')} className={`${userType==='sp' ? 'font-bold':undefined}`}>SP</button>
             <span>Stage {stage}</span>
-            <button onClick={()=> setStage(stage-1)}>Prev stage</button>
-            <button onClick={()=> setStage(stage+1)}>Next stage</button>
+            <button onClick={()=> stage>0 && setStage(stage-1)}>Prev stage</button>
+            <button onClick={()=> stage<5 && setStage(stage+1)}>Next stage</button>
             <Button href="/register" color="blue">
               <span>
                 <span className="hidden lg:inline">Go to</span> App

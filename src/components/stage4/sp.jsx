@@ -1,12 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { DappContext } from '@/pages/dao'
 import Image from 'next/image'
 import { PageTitle } from '@/components/PageTitle'
-import { Stage2ReposTable } from './Stage2ReposTable'
+import { Stage4ReposTable } from './Stage4ReposTable'
+import { Stage4SPTable } from './Stage4SPTable'
 import backgroundImage from '@/images/background-faqs.jpg'
 
-export const SPStage2 = () => {
+export const SPStage4 = () => {
+  const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
+  const [repoUrl, setRepoUrl] = useState('https://')
   const {
     users,
     setUsers,
@@ -14,31 +17,20 @@ export const SPStage2 = () => {
     repos,
     setRepos,
     activeStorageProvider,
-    storageProviders,
-    setStorageProviders,
   } = useContext(DappContext)
-
-  const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
-  const [repoUrl, setRepoUrl] = useState('https://')
-
-  const [clientRender, setClientRender] = useState(false)
-  useEffect(() => {
-    setClientRender(true)
-  }, [])
 
   return (
     <>
-      <PageTitle
-        title="Stage 2 is live"
-        subtitle={'SPs are submitting their proofs'}
-      />
+      <PageTitle title="Stage 4 is live" subtitle={''} />
       <div className=" mx-auto grid max-w-7xl  grid-cols-3 py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         {/* <div>
           <h3 className=" text-center text-xl capitalize">Your number of available votes</h3>
           <h3 className=" mt-4 text-center text-5xl">{activeUser.votes}</h3>
         </div> */}
         <div>
-          <h3 className=" text-center text-xl capitalize">Proofs Submitted</h3>
+          <h3 className=" text-center text-xl capitalize">
+            Accepted Proposals
+          </h3>
           <h3 className=" mt-4 text-center text-5xl">3</h3>
         </div>
         <div>
@@ -47,24 +39,20 @@ export const SPStage2 = () => {
         </div>
         <div>
           <h3 className=" text-center text-xl capitalize">
-            Time left to submit proofs
+            Time until end of Epoch
           </h3>
           <h3 className=" mt-4 text-center text-5xl">5 Days</h3>
         </div>
       </div>
 
-      <h3 className=" mt-16 text-center text-3xl font-bold capitalize">
-        Current submissions
+      <h3 className=" mt-16 px-32 text-center text-2xl ">
+        {"Applications are now closed. Rewards can be collected at the end of the epoch."}
       </h3>
-      {clientRender && (
-        <Stage2ReposTable
-          repos={repos}
-          setRepos={setRepos}
-          activeStorageProvider={activeStorageProvider}
-          storageProviders={storageProviders}
-          setStorageProviders={setStorageProviders}
-        />
-      )}
+
+      <Stage4SPTable
+        repos={repos}
+        activeStorageProvider={activeStorageProvider}
+      />
     </>
   )
 }

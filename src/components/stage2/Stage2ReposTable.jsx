@@ -1,13 +1,30 @@
 import { Fragment, useState } from 'react'
 
-export const Stage2ReposTable = ({ repos, setRepos }) => {
+export const Stage2ReposTable = ({
+  repos,
+  setRepos,
+  activeStorageProvider,
+  storageProviders,
+  setStorageProviders,
+}) => {
   const [expanded, setExpanded] = useState(undefined)
-
+  
+  const updateStorageProvider = ({url}) => {
+    const newSps = storageProviders.map(sp => {
+      if(sp.address === activeStorageProvider.address){
+        sp.applications = [...sp.applications, url]
+      }
+      return sp
+    })
+    setStorageProviders(newSps)
+  }
+  
   const handleSubmitProof = ({ url, dealId, pieceCid }) => {
     const newRepos = repos.map((repo) => {
       if (repo.url === url) {
         repo.dealId = dealId
         repo.pieceCid = pieceCid
+        updateStorageProvider({url})
       }
       return repo
     })
@@ -47,8 +64,8 @@ export const Stage2ReposTable = ({ repos, setRepos }) => {
                 <tbody className="bg-white">
                   {repos.map((repo, repoIdx) => {
                     const isExpanded = expanded === repo.url
-                    const hasApplication = typeof(repo.dealId) !== "undefined"
-                    if(hasApplication) {
+                    const hasApplication = typeof repo.dealId !== 'undefined'
+                    if (hasApplication) {
                       return (
                         <ExpandedApplication
                           key={repo.url}
@@ -80,9 +97,7 @@ export const Stage2ReposTable = ({ repos, setRepos }) => {
   )
 }
 
-
 const ExpandedApplication = ({ repo, isExpanded, setExpanded, repoIdx }) => {
-  
   return (
     <>
       <tr className={repoIdx % 2 === 0 ? undefined : 'bg-gray-50'}>
@@ -119,11 +134,16 @@ const ExpandedApplication = ({ repo, isExpanded, setExpanded, repoIdx }) => {
   )
 }
 
-const SubmissionForm = ({ repo, isExpanded, setExpanded, repoIdx, handleSubmitProof }) => {
+const SubmissionForm = ({
+  repo,
+  isExpanded,
+  setExpanded,
+  repoIdx,
+  handleSubmitProof,
+}) => {
   const [dealId, setDealId] = useState('')
   const [pieceCid, setPieceCid] = useState('')
 
-  
   return (
     <>
       <tr className={repoIdx % 2 === 0 ? undefined : 'bg-gray-50'}>
@@ -156,7 +176,9 @@ const SubmissionForm = ({ repo, isExpanded, setExpanded, repoIdx, handleSubmitPr
             <div className="grid justify-end">
               <button
                 type="button"
-                onClick={() => handleSubmitProof({url: repo.url, dealId, pieceCid})}
+                onClick={() =>
+                  handleSubmitProof({ url: repo.url, dealId, pieceCid })
+                }
                 className=" m-auto mt-16 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 {`Submit`}

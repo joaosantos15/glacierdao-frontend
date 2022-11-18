@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { CallToAction } from '@/components/CallToAction'
 import { Container } from '@/components/Container'
@@ -21,8 +21,9 @@ import backgroundImage from '@/images/background-faqs.jpg'
 export const DappContext = React.createContext({})
 
 export default function Home() {
-  const [stage, setStage] = useState(2)
-  const [userType, setUserType] = useState('sp') // user || sp
+  const [stage, setStage] = useState(3)
+  const [userType, setUserType] = useState('user') // user || sp
+  const [totalVotes, setTotalVotes] = useState(0)
   const [users, setUsers] = useState([
     {
       address: '0x123123',
@@ -31,12 +32,19 @@ export default function Home() {
     },
   ])
 
+  const [storageProviders, setStorageProviders] = useState([
+    {
+      address: '0x123123',
+      applications: [],
+    },
+  ])
+
   /**
    * url: 'github.com/ipfs',
       votes: 0,
       dealId: '',
       pieceCid: '',
-      accepted: false,
+      storageDealApproved: false,
    */
 
   const [repos, setRepos] = useState([
@@ -44,9 +52,18 @@ export default function Home() {
       url: 'github.com/ipfs',
       votes: 0,
     },
+    {
+      url: 'github.com/other',
+      votes: 0,
+      pieceCid:
+        'baga6ea4seaqd52q2wbgfxr5kgcugapgkub2bojfteouruqbfqgzf3k4e22xbsci',
+      dealId: '16184523',
+      storageDealApproved: true
+    },
   ])
 
   const activeUser = users[0]
+  const activeStorageProvider = storageProviders[0]
 
   //   const RenderComponent = Pages[`stage${stage}`][`${userType}`]
   const RenderComponent = Pages[`stage${stage}`][`${userType}`]
@@ -62,8 +79,13 @@ export default function Home() {
           setUserType,
           repos,
           setRepos,
-          stage, 
+          stage,
           setStage,
+          totalVotes,
+          setTotalVotes,
+          activeStorageProvider,
+          storageProviders,
+          setStorageProviders,
         }}
       >
         <Head>

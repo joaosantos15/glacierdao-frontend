@@ -1,44 +1,31 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { DappContext } from '@/pages/dao'
 import Image from 'next/image'
 import { PageTitle } from '@/components/PageTitle'
-import { Stage2ReposTable } from './Stage2ReposTable'
+import { Stage3ReposTable } from './Stage3ReposTable'
+import { Stage3SPTable } from './Stage3SPTable'
 import backgroundImage from '@/images/background-faqs.jpg'
 
-export const SPStage2 = () => {
-  const {
-    users,
-    setUsers,
-    activeUser,
-    repos,
-    setRepos,
-    activeStorageProvider,
-    storageProviders,
-    setStorageProviders,
-  } = useContext(DappContext)
-
+export const SPStage3 = () => {
   const stats = [{ name: 'Funding commited so far', stat: '8039 FIL' }]
   const [repoUrl, setRepoUrl] = useState('https://')
+  const { users, setUsers, activeUser, repos, setRepos, activeStorageProvider } = useContext(DappContext)
 
-  const [clientRender, setClientRender] = useState(false)
-  useEffect(() => {
-    setClientRender(true)
-  }, [])
 
   return (
     <>
       <PageTitle
-        title="Stage 2 is live"
-        subtitle={'SPs are submitting their proofs'}
+        title="Stage 3 is live"
+        subtitle={'Dao member are voting on applications'}
       />
-      <div className=" mx-auto grid max-w-7xl  grid-cols-3 py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
+      <div className=" mx-auto grid grid-cols-3  max-w-7xl py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
         {/* <div>
           <h3 className=" text-center text-xl capitalize">Your number of available votes</h3>
           <h3 className=" mt-4 text-center text-5xl">{activeUser.votes}</h3>
         </div> */}
         <div>
-          <h3 className=" text-center text-xl capitalize">Proofs Submitted</h3>
+          <h3 className=" text-center text-xl capitalize">Proofs waiting for approval</h3>
           <h3 className=" mt-4 text-center text-5xl">3</h3>
         </div>
         <div>
@@ -46,25 +33,17 @@ export const SPStage2 = () => {
           <h3 className=" mt-4 text-center text-5xl">99 FIL</h3>
         </div>
         <div>
-          <h3 className=" text-center text-xl capitalize">
-            Time left to submit proofs
-          </h3>
+          <h3 className=" text-center text-xl capitalize">Time left to submit application proofs</h3>
           <h3 className=" mt-4 text-center text-5xl">5 Days</h3>
         </div>
       </div>
-
-      <h3 className=" mt-16 text-center text-3xl font-bold capitalize">
-        Current submissions
-      </h3>
-      {clientRender && (
-        <Stage2ReposTable
-          repos={repos}
-          setRepos={setRepos}
-          activeStorageProvider={activeStorageProvider}
-          storageProviders={storageProviders}
-          setStorageProviders={setStorageProviders}
-        />
-      )}
+     
+      <h3 className=" text-center text-3xl font-bold mt-16 capitalize">Current submissions</h3>
+      
+      <Stage3SPTable repos={repos} activeStorageProvider={activeStorageProvider}/>
+      
+      
+    
     </>
   )
 }
