@@ -5,35 +5,32 @@ import Image from 'next/image'
 import { Tab } from '@headlessui/react'
 import backgroundImage from '@/images/background-features.jpg'
 import clsx from 'clsx'
-import screenshotExpenses from '@/images/screenshots/expenses.png'
-import screenshotPayroll from '@/images/screenshots/payroll.png'
-import screenshotReporting from '@/images/screenshots/reporting.png'
-import screenshotVatReturns from '@/images/screenshots/vat-returns.png'
+// import screenshotExpenses from '@/images/screenshots/expenses.png'
+// import screenshotPayroll from '@/images/screenshots/payroll.png'
+// import screenshotReporting from '@/images/screenshots/reporting.png'
+// import screenshotVatReturns from '@/images/screenshots/vat-returns.png'
+import screenshotStage0 from '@/images/screenshots/stage0.jpg'
+import screenshotStage1 from '@/images/screenshots/stage1.jpg'
+import screenshotStage5 from '@/images/screenshots/stage5.jpg'
 
 const features = [
   {
     title: 'Fund',
     description:
       "Send tokens to the DAO, which will give you voting power.",
-    image: screenshotPayroll,
+    image: screenshotStage0,
   },
   {
-    title: 'Submit',
+    title: 'Submit and vote',
     description:
-      "Submite candidate repos.",
-    image: screenshotExpenses,
-  },
-  {
-    title: 'Vote',
-    description:
-      "Cast your vote on your favourite repos.",
-    image: screenshotVatReturns,
+      "Submite candidate repos and vote.",
+    image: screenshotStage1,
   },
   {
     title: 'Collect rewards',
     description:
       'Storage Providers can then collect rewards for maintaining the data.',
-    image: screenshotReporting,
+    image: screenshotStage5,
   },
 ]
 

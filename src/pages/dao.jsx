@@ -21,7 +21,7 @@ import backgroundImage from '@/images/background-faqs.jpg'
 export const DappContext = React.createContext({})
 
 export default function Home() {
-  const [stage, setStage] = useState(3)
+  const [stage, setStage] = useState(0)
   const [userType, setUserType] = useState('user') // user || sp
   const [totalVotes, setTotalVotes] = useState(0)
   const [users, setUsers] = useState([

@@ -98,7 +98,7 @@ export function Header() {
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
-            <Link href="#" aria-label="Home">
+            <Link href="/" aria-label="Home">
               <Logo className="h-10 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
@@ -116,7 +116,7 @@ export function Header() {
             <span>Stage {stage}</span>
             <button onClick={()=> stage>0 && setStage(stage-1)}>Prev stage</button>
             <button onClick={()=> stage<5 && setStage(stage+1)}>Next stage</button>
-            <Button href="/register" color="blue">
+            <Button href="/dao" color="blue">
               <span>
                 <span className="hidden lg:inline">Go to</span> App
               </span>
