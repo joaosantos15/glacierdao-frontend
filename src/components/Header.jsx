@@ -1,12 +1,14 @@
+import { Fragment, useContext } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { Fragment } from 'react'
+import { DappContext } from '@/pages/dao'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 function MobileNavLink({ href, children }) {
   return (
@@ -90,17 +92,28 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  const router = useRouter()
+  
+  const {
+    stage,
+    setStage,
+    userType,
+    setUserType,
+    activeUser,
+    setActiveUser,
+    users,
+  } = useContext(DappContext)
   return (
-    <header className="py-10">
+    <header className="bg-slate-50 py-10">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
-            <Link href="#" aria-label="Home">
+            <Link href="/" aria-label="Home">
               <Logo className="h-10 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               <NavLink href="#features">Explore</NavLink>
-              <NavLink href="#testimonials">Learn</NavLink>
+              {/* <NavLink href="#testimonials">Learn</NavLink> */}
               {/* <NavLink href="#pricing">Pricing</NavLink> */}
             </div>
           </div>
@@ -108,11 +121,58 @@ export function Header() {
             {/* <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div> */}
-            <Button href="/register" color="blue">
-              <span>
-                <span className="hidden lg:inline">Go to</span> App
-              </span>
-            </Button>
+            {router.pathname === '/dao' ? <><button
+              onClick={() => {
+                setActiveUser(users[0])
+                setUserType('user')
+              }}
+              className={`${
+                userType === 'user' && activeUser.address === users[0].address
+                  ? 'font-bold'
+                  : undefined
+              }`}
+            >
+              User 1
+            </button>
+            <button
+              onClick={() => {
+                setActiveUser(users[1])
+                setUserType('user')
+              }}
+              className={`${
+                userType === 'user' && activeUser.address === users[1].address
+                  ? 'font-bold'
+                  : undefined
+              }`}
+            >
+              User 2
+            </button>
+            <button
+              onClick={() => setUserType('sp')}
+              className={`${userType === 'sp' ? 'font-bold' : undefined}`}
+            >
+              SP
+            </button>
+            <span>Stage {stage}</span>
+            <button onClick={() => stage > 0 && setStage(stage - 1)}>
+              Prev stage
+            </button>
+            <button onClick={() => stage < 5 && setStage(stage + 1)}>
+              Next stage
+            </button></> : undefined}
+            {router.pathname === '/dao' ? (
+              <Button href="/" color="blue">
+                <span>
+                   Exit demo
+                </span>
+              </Button>
+            ) : (
+              <Button href="/dao" color="blue">
+                <span>
+                  <span className="hidden lg:inline">Go to</span> Demo
+                </span>
+              </Button>
+            )}
             <div className="-mr-1 md:hidden">
               <MobileNavigation />
             </div>
