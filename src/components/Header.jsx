@@ -121,7 +121,7 @@ export function Header() {
             {/* <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div> */}
-            {router.pathname === '/dao' ? <><button
+            {/* {router.pathname === '/dao' ? <><button
               onClick={() => {
                 setActiveUser(users[0])
                 setUserType('user')
@@ -159,7 +159,7 @@ export function Header() {
             </button>
             <button onClick={() => stage < 5 && setStage(stage + 1)}>
               Next stage
-            </button></> : undefined}
+            </button></> : undefined} */}
             {router.pathname === '/dao' ? (
               <Button href="/" color="blue">
                 <span>

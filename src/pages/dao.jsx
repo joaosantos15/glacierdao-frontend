@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import Image from 'next/image'
+import { NoStage } from '@/components/noStage'
 import { PageTitle } from '@/components/PageTitle'
 import { Pages } from '@/components/stages'
 import { Pricing } from '@/components/Pricing'
@@ -111,8 +112,10 @@ export default function Home() {
             unoptimized
           />
           <Container className="relative">
-            {/* <Pages.stage0.user /> */}
-            <RenderComponent />
+            {/* <RenderComponent /> */}
+            {/* <SPStage0 />
+            <UserStage0/> */}
+            <NoStage/>
           </Container>
         </main>
         <Footer />
